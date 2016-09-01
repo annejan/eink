@@ -1003,7 +1003,9 @@ const unsigned char PROGMEM tiImage[3096] = { /* 0X11,0X02,0X00,0XAC,0X00,0X48, 
 void resetDisplay()
 {
   digitalWrite(12, LOW);
+  delay(1);
   digitalWrite(12, HIGH);
+  delay(1);
 }
 
 void writeCommand(unsigned char command)
