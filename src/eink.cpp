@@ -110,14 +110,14 @@ void setup() {
 }
 
 void loop() {
-  delay(5000);
+  delay(1000);
   displayImage(2);
-  delay(5000);
+  delay(1000);
   displayImage(3);
-  delay(5000);
+  delay(1000);
   displayImage(4);
-  delay(5000);
+  delay(1000);
   displayImage(5);
-  delay(5000);
+  delay(1000);
   displayImage(1);
 }
