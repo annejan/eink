@@ -29,17 +29,21 @@ void writeData(unsigned char data)
   digitalWrite(8, LOW);
 }
 
-void writeLUT()
+void writeLUT(bool fast = false)
 {
   unsigned char i;
   writeCommand(0x32);//write LUT register
   for (i = 0; i < 90; i++)
   {
-    writeData(init_data[i]);
+    if (fast) {
+      writeData(fast_lut[i]);
+    } else {
+      writeData(init_data[i]);
+    }
   }
 }
 
-void initSPD2701()
+void initSPD2701(bool fast = false)
 {
   writeCommand(0x03);//set PREVGH,PREVGL
   writeData(0x00);
@@ -67,7 +71,7 @@ void initSPD2701()
   writeData(0x63);
   writeCommand(0x22);//display updata sequence option ,in page 33
   writeData(0xC4);//enable sequence: clk -> CP -> LUT -> pattern display
-  writeLUT();
+  writeLUT(fast);
 }
 
 void entersleep()
@@ -77,7 +81,7 @@ void entersleep()
   writeCommand(0x20);
 }
 
-void displayImage(int wut)
+void displayImage(unsigned int wut)
 {
   char data;
   int i;
@@ -110,14 +114,16 @@ void setup() {
 }
 
 void loop() {
-  delay(1000);
+  delay(5000);
   displayImage(2);
-  delay(1000);
+  delay(5000);
   displayImage(3);
-  delay(1000);
+  delay(5000);
   displayImage(4);
-  delay(1000);
+  delay(5000);
   displayImage(5);
-  delay(1000);
+  delay(5000);
+  resetDisplay();
+  initSPD2701(true);
   displayImage(1);
 }
