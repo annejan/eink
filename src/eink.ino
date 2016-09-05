@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include <SPI.h>
 
 const unsigned char init_data[] = {
