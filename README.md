@@ -1,4 +1,5 @@
-# eink
-E-Ink tests 
+# E-Ink tests for SHA2017badge
 
-Now with [PlatformIO](http://platformio.org/)
+Read [project documentation](https://wiki.sha2017.org/index.php/Projects:Badge) and get involved.
+
+Now with [PlatformIO](http://platformio.org/) builds
