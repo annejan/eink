@@ -63,7 +63,7 @@ void initSPD2701()
   writeData(0x1F);
   writeCommand(0x2C);//vcom voltage
   writeData(0xA0);
-  writeCommand(0x3C);//board voltage
+  writeCommand(0x3C);//board voltage ? border waveform ?
   writeData(0x63);
   writeCommand(0x22);//display updata sequence option ,in page 33
   writeData(0xC4);//enable sequence: clk -> CP -> LUT -> pattern display
