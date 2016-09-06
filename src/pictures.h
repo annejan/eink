@@ -983,6 +983,8 @@ const unsigned char PROGMEM gImage_ti[3096] = { /* 0X11,0X02,0X00,0XAC,0X00,0X48
   0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00,
 };
 
-const unsigned char *pictures[5] = {
+const unsigned int num_pictures = 5;
+
+const unsigned char *pictures[num_pictures] = {
     gImage_sha, gImage_sha_logo, gImage_aj, gImage_ti, gImage_sha_grey
 };

@@ -89,14 +89,14 @@ void entersleep()
   writeCommand(0x20);
 }
 
-void displayImage(unsigned int wut)
+void displayImage(unsigned int picture)
 {
   char data;
   int i;
   writeCommand(0x24);
   for (i = 0; i < 3096; i++)
   {
-    data = pgm_read_byte(&pictures[wut][i]);
+    data = pgm_read_byte(&pictures[picture][i]);
     writeData(~data);
   }
   writeCommand(0x20);
@@ -113,14 +113,10 @@ void setup() {
 
 void loop() {
   delay(5000);
-  displayImage(1);
-  delay(5000);
-  displayImage(2);
-  delay(5000);
-  displayImage(3);
-  delay(5000);
-  displayImage(4);
-  delay(5000);
+  for (unsigned int picture = 1; picture < num_pictures; picture++) {
+    displayImage(picture);
+    delay(5000);
+  }
   resetDisplay();
   initSPD2701(true); // go faster
   displayImage(0);
