@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <SPI.h>
+
 #include "eink.h"
 #include "pictures.h"
 
@@ -95,17 +96,7 @@ void displayImage(unsigned int wut)
   writeCommand(0x24);
   for (i = 0; i < 3096; i++)
   {
-    if (wut == 1) {
-      data = pgm_read_byte(&gImage[i]);
-    } else if (wut == 2) {
-      data = pgm_read_byte(&anusImage[i]);
-    } else if (wut == 3) {
-      data = pgm_read_byte(&ajImage[i]);
-    } else if (wut == 4) {
-      data = pgm_read_byte(&tiImage[i]);
-    } else {
-      data = pgm_read_byte(&ogImage[i]);
-    }
+    data = pgm_read_byte(&pictures[wut][i]);
     writeData(~data);
   }
   writeCommand(0x20);
@@ -117,10 +108,12 @@ void setup() {
   pinMode(8, OUTPUT);
   resetDisplay();
   initSPD2701();
-  displayImage(1);
+  displayImage(0);
 }
 
 void loop() {
+  delay(5000);
+  displayImage(1);
   delay(5000);
   displayImage(2);
   delay(5000);
@@ -128,9 +121,7 @@ void loop() {
   delay(5000);
   displayImage(4);
   delay(5000);
-  displayImage(5);
-  delay(5000);
   resetDisplay();
   initSPD2701(true); // go faster
-  displayImage(1);
+  displayImage(0);
 }
