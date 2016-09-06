@@ -1,3 +1,4 @@
+#include <Arduino.h>
 
 const unsigned char PROGMEM gImage_sha_grey[3096] = { /* 0X11,0X02,0X00,0XAC,0X00,0X48, */
   0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X03, 0XFF, 0XFF,
