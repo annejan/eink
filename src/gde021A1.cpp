@@ -1,8 +1,4 @@
-#include <Arduino.h>
-#include <SPI.h>
-
-#include "eink.h"
-#include "pictures.h"
+#include "gde021A1.h"
 
 // GDE021A1
 // SPD2701 / SSD1606 ?
@@ -47,7 +43,7 @@ void writeLUT(bool fast = false)
   }
 }
 
-void initSPD2701(bool fast = false)
+void initDisplay(bool fast = false)
 {
   writeCommand(0x03);//set PREVGH,PREVGL
   writeData(0x00);
@@ -91,37 +87,4 @@ void entersleep()
   writeCommand(0x22);//display updata sequence option
   writeData(0x03);
   writeCommand(0x20);
-}
-
-void displayImage(unsigned int picture)
-{
-  char data;
-  int i;
-  writeCommand(0x24);
-  for (i = 0; i < 3096; i++)
-  {
-    data = pgm_read_byte(&pictures[picture][i]);
-    writeData(~data);
-  }
-  writeCommand(0x20);
-  entersleep();
-}
-
-void setup() {
-  SPI.begin();
-  pinMode(8, OUTPUT);
-  resetDisplay();
-  initSPD2701();
-  displayImage(0);
-}
-
-void loop() {
-  delay(5000);
-  for (unsigned int picture = 1; picture < num_pictures; picture++) {
-    displayImage(picture);
-    delay(5000);
-  }
-  resetDisplay();
-  initSPD2701(true); // go faster
-  displayImage(0);
 }

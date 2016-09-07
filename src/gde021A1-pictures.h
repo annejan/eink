@@ -1,5 +1,10 @@
 #include <Arduino.h>
 
+#ifndef PICTURES_H
+#define PICTURES_H
+
+// GDE021A1 
+
 const unsigned char PROGMEM gImage_sha_grey[3096] = { /* 0X11,0X02,0X00,0XAC,0X00,0X48, */
   0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X03, 0XFF, 0XFF,
   0XFF, 0XFF, 0X00, 0X00, 0X00, 0X00, 0X0F, 0X40, 0X00, 0X00, 0X02, 0XC0, 0X0B, 0XE0, 0X00, 0X03,
@@ -989,3 +994,5 @@ const unsigned int num_pictures = 5;
 const unsigned char *pictures[num_pictures] = {
     gImage_sha, gImage_sha_logo, gImage_aj, gImage_ti, gImage_sha_grey
 };
+
+#endif
