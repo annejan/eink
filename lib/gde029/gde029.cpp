@@ -27,6 +27,7 @@ void writeLUT(bool fast = false)
 
 void initDisplay(bool fast = false)
 {
+  // NB the fast bool is currently unused
   resetDisplay();
   writeCommand(0x01);        	//Set VGH VGL   VSH VSL
   writeData (0x03);
@@ -36,8 +37,7 @@ void initDisplay(bool fast = false)
   writeData (0x06);
   writeData (0x05);
   writeCommand(0x04);         //power up
-  //     lcd_chkstatus();                //check ic state
-  delay(20);
+  delay(200);
   writeCommand(0x60); 		 //TCON Setting
   writeData (0x32);
   writeCommand(0X50);
@@ -64,5 +64,5 @@ void displayImage(const unsigned char *picture)
     writeData(~data);
   }
   writeCommand(0x12);        //display
-  writeCommand(0x02);        //power off 
+  writeCommand(0x02);        //power off
 }

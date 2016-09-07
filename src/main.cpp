@@ -21,6 +21,6 @@ void loop() {
     displayImage(pictures[picture]);
     delay(5000);
   }
-  initDisplay(true); // go faster
-  displayImage(0);
+  initDisplay(true); // go faster ;)
+  displayImage(pictures[0]);
 }
