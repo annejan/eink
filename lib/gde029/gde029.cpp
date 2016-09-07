@@ -4,6 +4,11 @@
 // GDE029
 // UC8157C ?
 
+// WARNING WARNING WARNING WARNING WARNING WARNING //
+//                                                 //
+// TODO this driver is not functional (yet)        //
+//                                                 //
+// WARNING WARNING WARNING WARNING WARNING WARNING //
 void writeLUT(bool fast = false)
 {
   // NB the fast bool is currently unused
