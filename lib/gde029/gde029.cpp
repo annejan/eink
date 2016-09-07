@@ -18,7 +18,6 @@ void writeLUT(bool fast = false)
   {
     writeData(lut_w[count]);
   }
-
   writeCommand(0x22);
   for(count=0;count<15;count++)
   {
@@ -38,7 +37,7 @@ void initDisplay(bool fast = false)
   writeData (0x05);
   writeCommand(0x04);         //power up
   //     lcd_chkstatus();                //check ic state
-  sleep(20);
+  delay(20);
   writeCommand(0x60); 		 //TCON Setting
   writeData (0x32);
   writeCommand(0X50);
@@ -52,14 +51,18 @@ void initDisplay(bool fast = false)
   writeCommand(0x82);			//vcom setting
   writeData (0x05);
   writeLUT();
-  writeCommand(0x10);	       //update grey image
-  //Ultrachip();
-  writeCommand(0x12);        //display
 }
 
-void entersleep()
+void displayImage(const unsigned char *picture)
 {
-  // writeCommand(0x22);//display updata sequence option
-  // writeData(0x03);
-  // writeCommand(0x20);
+  char data;
+  int i;
+  writeCommand(0x10);	       //update grey image
+  for (i = 0; i < 3096; i++)
+  {
+    data = pgm_read_byte(&picture[i]);
+    writeData(~data);
+  }
+  writeCommand(0x12);        //display
+  writeCommand(0x02);        //power off 
 }

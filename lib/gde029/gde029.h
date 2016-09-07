@@ -5,7 +5,7 @@
 
 void writeLUT(bool fast);
 void initDisplay(bool fast);
-void entersleep();
+void displayImage(const unsigned char *picture);
 
 const unsigned char lut_vcom0[] =
 {
@@ -68,7 +68,7 @@ const unsigned char lut_b[] =
            0x00,
            0x00,
 };
-const unsigned char  code lut_g1[] =
+const unsigned char lut_g1[] =
 {
            0x4F,
            0x4F,

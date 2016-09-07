@@ -55,8 +55,18 @@ void initDisplay(bool fast = false)
   writeLUT(fast);
 }
 
-void entersleep()
+void displayImage(const unsigned char *picture)
 {
+  char data;
+  int i;
+  writeCommand(0x24);
+  for (i = 0; i < 3096; i++)
+  {
+    data = pgm_read_byte(&picture[i]);
+    writeData(~data);
+  }
+  writeCommand(0x20);
+  // enter sleep
   writeCommand(0x22);//display updata sequence option
   writeData(0x03);
   writeCommand(0x20);

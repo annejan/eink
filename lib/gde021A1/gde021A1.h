@@ -5,7 +5,7 @@
 
 void writeLUT(bool fast);
 void initDisplay(bool fast);
-void entersleep();
+void displayImage(const unsigned char *picture);
 
 const unsigned char init_data[90] = {
   0x82,0x00,0x00,0x00,0xAA,0x00,0x00,0x00,
