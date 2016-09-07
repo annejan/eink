@@ -1,9 +1,9 @@
-#include <Arduino.h>
-
 #ifndef PICTURES_H
 #define PICTURES_H
 
-// GDE021A1 
+#include <Arduino.h>
+
+// GDE021A1
 
 const unsigned char PROGMEM gImage_sha_grey[3096] = { /* 0X11,0X02,0X00,0XAC,0X00,0X48, */
   0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X00, 0X03, 0XFF, 0XFF,

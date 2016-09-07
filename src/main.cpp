@@ -1,5 +1,9 @@
-#include "gde021A1.h"
-#include "gde021A1-pictures.h"
+#include <gde.h>
+#include <gde021A1.h>
+#include <gde021A1-pictures.h>
+
+#include <Arduino.h>
+#include <SPI.h>
 
 void displayImage(unsigned int picture)
 {
@@ -18,7 +22,6 @@ void displayImage(unsigned int picture)
 void setup() {
   SPI.begin();
   pinMode(8, OUTPUT);
-  resetDisplay();
   initDisplay(false);
   displayImage(0);
 }
@@ -29,7 +32,6 @@ void loop() {
     displayImage(picture);
     delay(5000);
   }
-  resetDisplay();
   initDisplay(true); // go faster
   displayImage(0);
 }

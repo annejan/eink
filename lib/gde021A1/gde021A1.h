@@ -2,11 +2,7 @@
 #define GDE021A1_H
 
 #include <Arduino.h>
-#include <SPI.h>
 
-void resetDisplay();
-void writeCommand(unsigned char command);
-void writeData(unsigned char data);
 void writeLUT(bool fast);
 void initDisplay(bool fast);
 void entersleep();
