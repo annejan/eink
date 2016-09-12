@@ -1,11 +1,10 @@
 #include <pins.h>
-
 #include <gde.h>
-// #include <gde021A1.h>
-// #include <gde021A1-pictures.h>
+#include <gde021A1.h>
+#include <gde021A1-pictures.h>
 // #include <gde029.h>
-#include <gdeh029a1.h>
-#include <gde029-pictures.h>
+// #include <gdeh029a1.h>
+// #include <gde029-pictures.h>
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -18,6 +17,7 @@ void setup() {
   displayImage(pictures[0]);
 }
 
+#ifdef GDEH029A1_H
 void parttest()
 {
 	unsigned int i,j,k;
@@ -53,6 +53,7 @@ void parttest()
 		}
 	}
 }
+#endif
 
 void loop() {
   delay(5000);
