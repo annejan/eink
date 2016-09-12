@@ -1,5 +1,6 @@
 #include <pins.h>
 #include <gde.h>
+
 #include <gde021A1.h>
 #include <gde021A1-pictures.h>
 // #include <gde029.h>
@@ -25,10 +26,11 @@ void parttest()
 	powerOn();
 	setRamArea(0x00,0x0f,0x27,0x01,0x00,0x00);
 	setRamPointer(0x00,0x27,0x01);	// set ram
-	writeDispRamMono(128, 296, 0xff);	// white
+  writeDispRamMono(128, 296, 0xff);	// white
+  delay(10000);
   writeDispRamMono(128, 296, 0xff);	// white
   updateDisplayPartial();
-	delay(10000);
+  delay(10000);
 	while(1)
 	{
 	  partialDisplay(0x00,0x0f,0x27,0x01,0x00,0x0);	// set ram
