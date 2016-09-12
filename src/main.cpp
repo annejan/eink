@@ -3,7 +3,6 @@
 
 // #include <gde021A1.h>
 // #include <gde021A1-pictures.h>
-// #include <gde029.h>
 #include <gdeh029a1.h>
 #include <gde029-pictures.h>
 
@@ -63,10 +62,10 @@ void loop() {
     displayImage(pictures[picture]);
     delay(5000);
   }
-#ifdef GDEH029A1_H
-  parttest();
-#else
+// #ifdef GDEH029A1_H
+//   parttest();
+// #else
   initDisplay(true); // go faster ;)
-#endif
-  displayImage(pictures[0]);
+// #endif
+//   displayImage(pictures[0]);
 }
