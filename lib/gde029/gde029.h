@@ -1,5 +1,5 @@
-#ifndef GDE09_H
-#define GDE029_H
+#ifndef GDE_DRIVER_H
+#define GDE_DRIVER_H
 
 // WARNING WARNING WARNING WARNING WARNING WARNING //
 //                                                 //

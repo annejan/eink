@@ -1,5 +1,5 @@
-#ifndef GDEH029A1_H
-#define GDEH029A1_H
+#ifndef GDE_DRIVER_H
+#define GDE_DRIVER_H
 
 #include <Arduino.h>
 
