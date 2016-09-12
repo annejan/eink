@@ -1,6 +1,9 @@
 #include <gde.h>
 #include "gde021A1.h"
 
+// GDE021A1
+// SSD1606
+
 void writeLUT(bool fast = false)
 {
   unsigned char i;
@@ -35,10 +38,10 @@ void initDisplay(bool fast = false)
   writeCommand(0x4F);//set RAM y address count to 0;
   writeData(0xAB);
   writeCommand(0x21);//bypass RAM data
-  // writeData(0x03);      // InitialUpdate_SourceControl=3=GS0,GS3; Disable Bypass - clear with inverted image, than draw the image.
+  writeData(0x03);      // InitialUpdate_SourceControl=3=GS0,GS3; Disable Bypass - clear with inverted image, than draw the image.
   // writeData(0x83);      // InitialUpdate_SourceControl=3=GS0,GS3; Enable Bypass (clear with white bg)
   // writeData(0xB3);      // InitialUpdate_SourceControl=3=GS0,GS3; Enable Bypass; A[5:4]=11 (clear with black bg)
-  writeData(0x81);      // Only content (could it be?)
+  // writeData(0x81);      // Only content (could it be?)
   writeCommand(0xF0);//booster feedback used
   writeData(0x1F);
   writeCommand(0x2C);//vcom voltage

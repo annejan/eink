@@ -1,6 +1,12 @@
 #ifndef GDE09_H
 #define GDE029_H
 
+// WARNING WARNING WARNING WARNING WARNING WARNING //
+//                                                 //
+// TODO  this driver is not functional (yet)  TODO //
+//                                                 //
+// WARNING WARNING WARNING WARNING WARNING WARNING //
+
 #include <Arduino.h>
 
 void writeLUT(bool fast);
@@ -27,7 +33,6 @@ const unsigned char lut_vcom0[] =
            0x00,
            0x00,
 };
-
 const unsigned char lut_w[] =
 {
            0x8F,
