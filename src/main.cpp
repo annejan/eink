@@ -1,11 +1,11 @@
 #include <pins.h>
 #include <gde.h>
 
-#include <gde021A1.h>
-#include <gde021A1-pictures.h>
+// #include <gde021A1.h>
+// #include <gde021A1-pictures.h>
 // #include <gde029.h>
-// #include <gdeh029a1.h>
-// #include <gde029-pictures.h>
+#include <gdeh029a1.h>
+#include <gde029-pictures.h>
 
 #include <Arduino.h>
 #include <SPI.h>
