@@ -4,7 +4,8 @@
 // #include <gde021A1.h>
 // #include <gde021A1-pictures.h>
 #include <gdeh029a1.h>
-#include <gde029-pictures.h>
+// #include <menu-test.h>
+#include <sha-images.h>
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -14,9 +15,6 @@ void setup() {
   SPI.begin();
   pinMode(PIN_DATA, OUTPUT);
   initDisplay(false);
-  displayImage(pictures[0]);
-  delay(3000);
-  initDisplay(true);
   displayImage(pictures[0]);
 }
 
@@ -59,16 +57,19 @@ void parttest()
 }
 #endif
 
+bool faster = false;
+
 void loop() {
-  delay(200);
+  delay(2000);
   for (unsigned int picture = 1; picture < num_pictures; picture++) {
     displayImage(pictures[picture]);
-    delay(200);
+    delay(2000);
   }
 // #ifdef GDEH029A1_H
 //   parttest();
 // #else
-//  initDisplay(true); // go faster ;)
+  faster = !faster;
+  initDisplay(faster); // go faster ;)
 // #endif
-//  displayImage(pictures[0]);
+  displayImage(pictures[0]);
 }
