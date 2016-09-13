@@ -15,6 +15,9 @@ void setup() {
   pinMode(PIN_DATA, OUTPUT);
   initDisplay(false);
   displayImage(pictures[0]);
+  delay(3000);
+  initDisplay(true);
+  displayImage(pictures[0]);
 }
 
 #ifdef GDEH029A1_H
@@ -57,15 +60,15 @@ void parttest()
 #endif
 
 void loop() {
-  delay(5000);
+  delay(200);
   for (unsigned int picture = 1; picture < num_pictures; picture++) {
     displayImage(pictures[picture]);
-    delay(5000);
+    delay(200);
   }
 // #ifdef GDEH029A1_H
 //   parttest();
 // #else
-  initDisplay(true); // go faster ;)
+//  initDisplay(true); // go faster ;)
 // #endif
-  displayImage(pictures[0]);
+//  displayImage(pictures[0]);
 }
