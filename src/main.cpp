@@ -67,5 +67,5 @@ void loop() {
 // #else
   initDisplay(true); // go faster ;)
 // #endif
-//   displayImage(pictures[0]);
+  displayImage(pictures[0]);
 }
