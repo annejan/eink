@@ -42,7 +42,7 @@ void parttest()
     writeDispRam(128,296, pictures[0]);
 		delay(speed);
 
-    for(h=0;h<8;h++)
+    for(h=0;h<13;h++)
     {
       for(i=0;i<8;i++)
     	{
