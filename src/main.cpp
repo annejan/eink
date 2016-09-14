@@ -10,7 +10,6 @@
 #include <Arduino.h>
 #include <SPI.h>
 
-
 void setup() {
   SPI.begin();
   pinMode(PIN_DATA, OUTPUT);
@@ -60,16 +59,19 @@ void parttest()
 bool faster = false;
 
 void loop() {
-  delay(2000);
+  delay(faster ? 500 : 2000);
   for (unsigned int picture = 1; picture < num_pictures; picture++) {
     displayImage(pictures[picture]);
-    delay(2000);
+    delay(faster ? 500 : 2000);
   }
 // #ifdef GDEH029A1_H
 //   parttest();
 // #else
   faster = !faster;
   initDisplay(faster); // go faster ;)
+  if (!faster) {
+    delay(1800);
+  }
 // #endif
   displayImage(pictures[0]);
 }
