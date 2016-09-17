@@ -6,7 +6,7 @@
 
 void writeLUT(bool fast);
 void initDisplay(bool fast);
-void displayImage(const unsigned char *picture);
+void displayImage(const unsigned char *picture, bool partial = false);
 void setRamArea(unsigned char Xstart,unsigned char Xend,
 						    unsigned char Ystart,unsigned char Ystart1,
 								unsigned char Yend,unsigned char Yend1);

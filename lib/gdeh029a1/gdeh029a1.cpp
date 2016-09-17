@@ -46,11 +46,17 @@ void initDisplay(bool fast = false)
   writeLUT(fast);
 }
 
-void displayImage(const unsigned char *picture)
+void displayImage(const unsigned char *picture, bool partial)
 {
   setRamPointer(0x00,0x27,0x01);	// set ram
 	writeDispRam(128, 296, picture);
-	updateDisplay();
+  if (partial) {
+     updateDisplayPartial();
+     setRamPointer(0x00,0x27,0x01);	// set ram
+   	 writeDispRam(128, 296, picture);
+  } else {
+	   updateDisplay();
+  }
 }
 
 void setRamArea(unsigned char Xstart,unsigned char Xend,
@@ -94,7 +100,7 @@ void updateDisplay(void)
  void updateDisplayPartial(void)
 {
 	writeCMD_p1(0x22,0x04);
-	//EPD_W21_WriteCMD_p1(0x22,0x08);
+	//writeCMD_p1(0x22,0x08);
 	writeCommand(0x20);
 	writeCommand(0xff);
 }
