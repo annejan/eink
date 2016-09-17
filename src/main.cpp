@@ -17,7 +17,7 @@ void setup() {
   displayImage(pictures[0]);
 }
 
-#ifdef GDE_DRIVER_H
+#ifdef GDEH029A1
 int speed = 500;
 
 void parttest()
@@ -69,7 +69,7 @@ void loop() {
     displayImage(pictures[picture]);
     delay(faster ? 500 : 2000);
   }
-#ifdef GDE_DRIVER_H
+#if 0
   parttest();
 #else
   faster = !faster;

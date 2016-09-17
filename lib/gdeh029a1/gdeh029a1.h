@@ -1,5 +1,6 @@
 #ifndef GDE_DRIVER_H
 #define GDE_DRIVER_H
+#define GDEH029A1
 
 #include <Arduino.h>
 
