@@ -64,19 +64,20 @@ void parttest()
 bool faster = false;
 
 void loop() {
-  delay(faster ? 500 : 2000);
+  delay(faster ? 300 : 2000);
   for (unsigned int picture = 1; picture < num_pictures; picture++) {
     displayImage(pictures[picture]);
-    delay(faster ? 500 : 2000);
+    delay(faster ? 300 : 2000);
   }
 #if 0
   parttest();
 #else
-  faster = !faster;
-  initDisplay(faster); // go faster ;)
-  if (!faster) {
-    delay(1500);
-  }
+  // faster = !faster;
+  // initDisplay(faster); // go faster ;)
+  // if (!faster) {
+  //   delay(1500);
+  // }
+  initDisplay(true);
 #endif
   displayImage(pictures[0]);
 }
