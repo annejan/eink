@@ -10,6 +10,9 @@
 #include <Arduino.h>
 #include <SPI.h>
 
+bool faster = false;
+unsigned int menu = 0;
+
 void setup() {
   SPI.begin();
   pinMode(PIN_DATA, OUTPUT);
@@ -61,23 +64,58 @@ void parttest()
 }
 #endif
 
-bool faster = false;
+void writeDispRamMenu(unsigned char xSize,unsigned int ySize, const unsigned char *dispdata, unsigned int menuItem)
+{
+  unsigned int i = 0, j = 0, c = 0;
+  char data;
+
+	if(xSize%8 != 0)
+	{
+		xSize = xSize+(8-xSize%8);
+	}
+	xSize = xSize/8;
+
+  digitalWrite(PIN_CS, HIGH);
+  digitalWrite(PIN_CS, LOW);
+	SPI.transfer(0x24);
+
+  digitalWrite(PIN_DATA, HIGH);
+	for(i=0;i<ySize;i++)
+	{
+		for(j=0;j<xSize;j++)
+		{
+      data = pgm_read_byte(&dispdata[c]);
+
+      if (menu == 1) {
+        if (i > 10 && i < 70 && j > 2 && j < 8) {
+          data = ~data;
+        }
+      } else if (menu == 2) {
+
+      } else if (menu == 3) {
+
+      } else if (menu == 4) {
+
+      }
+
+			SPI.transfer(data);
+      c++;
+		}
+	}
+  digitalWrite(PIN_CS, HIGH);
+  digitalWrite(PIN_DATA, LOW);
+}
+
+void menuImage(const unsigned char *picture, unsigned int menuItem = 0)
+{
+  setRamPointer(0x00,0x27,0x01);	// set ram
+	writeDispRamMenu(128, 296, picture, menuItem);
+	updateDisplay();
+}
 
 void loop() {
-  delay(faster ? 300 : 2000);
-  for (unsigned int picture = 1; picture < num_pictures; picture++) {
-    displayImage(pictures[picture]);
-    delay(faster ? 300 : 2000);
-  }
-#if 0
-  parttest();
-#else
-  // faster = !faster;
-  // initDisplay(faster); // go faster ;)
-  // if (!faster) {
-  //   delay(1500);
-  // }
-  initDisplay(true);
-#endif
-  displayImage(pictures[0]);
+  // TODO wait for button
+  //initDisplay(false);
+  //menuImage(picture[1]);
+  // TODO menu logic
 }
