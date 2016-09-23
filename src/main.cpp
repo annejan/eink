@@ -137,16 +137,28 @@ bool menuX = false;
 bool menuY = false;
 bool active = false;
 bool button = true;
+int menuItem = 1;
+bool animu = false;
+bool flip = false;
 
 void loop() {
   bool escape = false;
   while (digitalRead(PIN_JOY_BTN) == HIGH) {
-
+    if (animu) {
+      if (flip) {
+        displayImage(pictures[0]);
+      } else {
+        displayImage(pictures[4]);
+      }
+      flip = !flip;
+      delay(600);
+    }
   }
+  animu = false;
   menuImage(pictures[1],0);
   delay(2000);
   initDisplay(true);
-  menuImage(pictures[1],1);
+  menuImage(pictures[1], menuItem);
 
   while (!escape) {
     int x = analogRead(PIN_JOY_X);
@@ -166,7 +178,6 @@ void loop() {
     }
     if (active) {
       active = false;
-      int menuItem;
       if (menuX && menuY) {
         menuItem = 4;
       } else if (menuX && !menuY) {
@@ -202,10 +213,8 @@ void loop() {
           displayImage(pictures[4]);
           escape = true;
         } if (menuItem == 4) {
-          resetDisplay();
-          delay(200);
-          initDisplay(false);
           displayImage(pictures[4]);
+          animu = true;
           escape = true;
         }
       }
