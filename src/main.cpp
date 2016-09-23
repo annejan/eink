@@ -49,7 +49,7 @@ void parttest()
   writeDispRamMono(128, 296, 0xff);	// white
   updateDisplayPartial();
   delay(speed);
-	while(1)
+	while(digitalRead(PIN_JOY_BTN) == HIGH)
 	{
 	  partialDisplay(0x00,0x0f,0x27,0x01,0x00,0x0);	// set ram
 		writeDispRam(128,296, pictures[4]);
@@ -196,6 +196,11 @@ void loop() {
           escape = true;
         } else if (menuItem == 3) {
           parttest();
+          resetDisplay();
+          delay(200);
+          initDisplay(false);
+          displayImage(pictures[4]);
+          escape = true;
         } if (menuItem == 4) {
           resetDisplay();
           delay(200);
