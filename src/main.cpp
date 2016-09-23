@@ -13,9 +13,23 @@
 bool faster = false;
 unsigned int menu = 0;
 
+#define PIN_JOY_BTN 2
+#define PIN_JOY_X A5
+#define PIN_JOY_Y A4
+
 void setup() {
   SPI.begin();
   pinMode(PIN_DATA, OUTPUT);
+
+  pinMode(3, OUTPUT); // joystick
+  digitalWrite(3, HIGH); // VCC
+  pinMode(4, OUTPUT); // joystick
+  digitalWrite(4, LOW); // GND
+
+  pinMode(PIN_JOY_BTN, INPUT_PULLUP); // joystick button
+  pinMode(PIN_JOY_X, INPUT); // joystick X
+  pinMode(PIN_JOY_Y, INPUT); // joystick Y
+
   initDisplay(false);
   displayImage(pictures[0]);
 }
@@ -86,16 +100,22 @@ void writeDispRamMenu(unsigned char xSize,unsigned int ySize, const unsigned cha
 		{
       data = pgm_read_byte(&dispdata[c]);
 
-      if (menu == 1) {
-        if (i > 10 && i < 70 && j > 2 && j < 8) {
+      if (menuItem == 1) {
+        if (i > 8 && i < 140 && j > 2 && j < 8) {
           data = ~data;
         }
-      } else if (menu == 2) {
-
-      } else if (menu == 3) {
-
-      } else if (menu == 4) {
-
+      } else if (menuItem == 2) {
+        if (i > 8 && i < 140 && j > 8 && j < 14) {
+          data = ~data;
+        }
+      } else if (menuItem == 3) {
+        if (i > 156 && i < 288 && j > 2 && j < 8) {
+          data = ~data;
+        }
+      } else if (menuItem == 4) {
+        if (i > 156 && i < 288 && j > 8 && j < 14) {
+          data = ~data;
+        }
       }
 
 			SPI.transfer(data);
@@ -113,9 +133,77 @@ void menuImage(const unsigned char *picture, unsigned int menuItem = 0)
 	updateDisplay();
 }
 
+bool menuX = false;
+bool menuY = false;
+bool active = false;
+bool button = true;
+
 void loop() {
-  // TODO wait for button
-  //initDisplay(false);
-  //menuImage(picture[1]);
-  // TODO menu logic
+  bool escape = false;
+  while (digitalRead(PIN_JOY_BTN) == HIGH) {
+
+  }
+  menuImage(pictures[1],0);
+  delay(2000);
+  initDisplay(true);
+  menuImage(pictures[1],1);
+
+  while (!escape) {
+    if (digitalRead(PIN_JOY_BTN) == LOW) {
+      button = true;
+      active = true;
+    }
+    int x = analogRead(PIN_JOY_X);
+    int y = analogRead(PIN_JOY_Y);
+    // center is aprox 520, minus 3 max 1018 (pretty good)
+    if (!active && (x < 230 || x > 780)) {
+      active = true;
+      menuX = !menuX;
+    }
+    if (!active && (y < 230 || y > 780)) {
+      active = true;
+      menuY = !menuY;
+    }
+    if (active) {
+      active = false;
+      int menuItem;
+      if (menuX && menuY) {
+        menuItem = 4;
+      } else if (menuX && !menuY) {
+        menuItem = 2;
+      } else if (!menuX && !menuY) {
+        menuItem = 1;
+      } else if (!menuX && menuY) {
+        menuItem = 3;
+      }
+      menuImage(pictures[1], menuItem);
+      if (button == true) {
+        button = false;
+        delay(300);
+        menuImage(pictures[1], 0);
+        delay(300);
+        if (menuItem == 1) {
+          resetDisplay();
+          delay(200);
+          initDisplay(false);
+          displayImage(pictures[2]);
+          escape = true;
+        } else if (menuItem == 2) {
+          resetDisplay();
+          delay(200);
+          initDisplay(false);
+          displayImage(pictures[3]);
+          escape = true;
+        } else if (menuItem == 3) {
+          parttest();
+        } if (menuItem == 4) {
+          resetDisplay();
+          delay(200);
+          initDisplay(false);
+          displayImage(pictures[4]);
+          escape = true;
+        }
+      }
+    }
+  }
 }
