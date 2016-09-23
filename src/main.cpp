@@ -149,20 +149,20 @@ void loop() {
   menuImage(pictures[1],1);
 
   while (!escape) {
-    if (digitalRead(PIN_JOY_BTN) == LOW) {
-      button = true;
-      active = true;
-    }
     int x = analogRead(PIN_JOY_X);
     int y = analogRead(PIN_JOY_Y);
     // center is aprox 520, minus 3 max 1018 (pretty good)
-    if (!active && (x < 230 || x > 780)) {
+    if (x < 30 || x > 990) {
       active = true;
       menuX = !menuX;
     }
-    if (!active && (y < 230 || y > 780)) {
+    if (y < 30 || y > 990) {
       active = true;
       menuY = !menuY;
+    }
+    if (!active && digitalRead(PIN_JOY_BTN) == LOW) {
+      button = true;
+      active = true;
     }
     if (active) {
       active = false;
