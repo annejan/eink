@@ -52,11 +52,11 @@ void parttest()
 	while(1)
 	{
 	  partialDisplay(0x00,0x0f,0x27,0x01,0x00,0x0);	// set ram
-		writeDispRam(128,296, pictures[0]);
+		writeDispRam(128,296, pictures[4]);
 		updateDisplayPartial();
 		delay(speed);
 		partialDisplay(0x00,0x0f,0x27,0x01,0x00,0x00);	// set ram
-    writeDispRam(128,296, pictures[0]);
+    writeDispRam(128,296, pictures[4]);
 		delay(speed);
 
     for(h=0;h<13;h++)
