@@ -1,5 +1,5 @@
-#include <pins.h>
 #include <gde.h>
+#include <pins.h>
 
 // #include <gde021A1.h>
 // #include <gde021A1-pictures.h>
@@ -13,22 +13,26 @@
 bool faster = false;
 unsigned int menu = 0;
 
+#if false
 #define PIN_JOY_BTN 2
 #define PIN_JOY_X A5
 #define PIN_JOY_Y A4
+#endif
 
 void setup() {
   SPI.begin();
   pinMode(PIN_DATA, OUTPUT);
 
-  pinMode(3, OUTPUT); // joystick
+  pinMode(3, OUTPUT);    // joystick
   digitalWrite(3, HIGH); // VCC
-  pinMode(4, OUTPUT); // joystick
-  digitalWrite(4, LOW); // GND
+  pinMode(4, OUTPUT);    // joystick
+  digitalWrite(4, LOW);  // GND
 
+#if false
   pinMode(PIN_JOY_BTN, INPUT_PULLUP); // joystick button
   pinMode(PIN_JOY_X, INPUT); // joystick X
   pinMode(PIN_JOY_Y, INPUT); // joystick Y
+#endif
 
   initDisplay(false);
   displayImage(pictures[0]);
@@ -37,67 +41,64 @@ void setup() {
 #ifdef GDEH029A1
 int speed = 500;
 
-void parttest()
-{
-	unsigned int h,i,j,k;
-	writeLUT(true);
-	powerOn();
-	setRamArea(0x00,0x0f,0x27,0x01,0x00,0x00);
-	setRamPointer(0x00,0x27,0x01);	// set ram
-  writeDispRamMono(128, 296, 0xff);	// white
+#if false
+void parttest() {
+  unsigned int h, i, j, k;
+  writeLUT(true);
+  powerOn();
+  setRamArea(0x00, 0x0f, 0x27, 0x01, 0x00, 0x00);
+  setRamPointer(0x00, 0x27, 0x01);  // set ram
+  writeDispRamMono(128, 296, 0xff); // white
   delay(speed);
-  writeDispRamMono(128, 296, 0xff);	// white
+  writeDispRamMono(128, 296, 0xff); // white
   updateDisplayPartial();
   delay(speed);
-	while(digitalRead(PIN_JOY_BTN) == HIGH)
-	{
-	  partialDisplay(0x00,0x0f,0x27,0x01,0x00,0x0);	// set ram
-		writeDispRam(128,296, pictures[4]);
-		updateDisplayPartial();
-		delay(speed);
-		partialDisplay(0x00,0x0f,0x27,0x01,0x00,0x00);	// set ram
-    writeDispRam(128,296, pictures[4]);
-		delay(speed);
+  while (digitalRead(PIN_JOY_BTN) == HIGH) {
+    partialDisplay(0x00, 0x0f, 0x27, 0x01, 0x00, 0x0); // set ram
+    writeDispRam(128, 296, pictures[4]);
+    updateDisplayPartial();
+    delay(speed);
+    partialDisplay(0x00, 0x0f, 0x27, 0x01, 0x00, 0x00); // set ram
+    writeDispRam(128, 296, pictures[4]);
+    delay(speed);
 
-    for(h=0;h<13;h++)
-    {
-      for(i=0;i<8;i++)
-    	{
-  		  k=0x127-i*32-20;
-  			j=k-32;
-  			partialDisplay(0x0e - h,0x0e - h,k%256,k/256,j%256,j/256);	// set ram
-  			writeDispRamMono(8, 32, 0x00);	// white
-  	 		updateDisplayPartial();
-  			delay(speed);
-  			partialDisplay(0x0e - h,0x0e - h,k%256,k/256,j%256,j/256);	// set ram
-  			writeDispRamMono(8, 32, 0x00);	// white
-  			delay(speed);
-    	}
+    for (h = 0; h < 13; h++) {
+      for (i = 0; i < 8; i++) {
+        k = 0x127 - i * 32 - 20;
+        j = k - 32;
+        partialDisplay(0x0e - h, 0x0e - h, k % 256, k / 256, j % 256,
+                       j / 256);       // set ram
+        writeDispRamMono(8, 32, 0x00); // white
+        updateDisplayPartial();
+        delay(speed);
+        partialDisplay(0x0e - h, 0x0e - h, k % 256, k / 256, j % 256,
+                       j / 256);       // set ram
+        writeDispRamMono(8, 32, 0x00); // white
+        delay(speed);
+      }
     }
   }
 }
 #endif
+#endif
 
-void writeDispRamMenu(unsigned char xSize,unsigned int ySize, const unsigned char *dispdata, unsigned int menuItem)
-{
+void writeDispRamMenu(unsigned char xSize, unsigned int ySize,
+                      const unsigned char *dispdata, unsigned int menuItem) {
   unsigned int i = 0, j = 0, c = 0;
   char data;
 
-	if(xSize%8 != 0)
-	{
-		xSize = xSize+(8-xSize%8);
-	}
-	xSize = xSize/8;
+  if (xSize % 8 != 0) {
+    xSize = xSize + (8 - xSize % 8);
+  }
+  xSize = xSize / 8;
 
   digitalWrite(PIN_CS, HIGH);
   digitalWrite(PIN_CS, LOW);
-	SPI.transfer(0x24);
+  SPI.transfer(0x24);
 
   digitalWrite(PIN_DATA, HIGH);
-	for(i=0;i<ySize;i++)
-	{
-		for(j=0;j<xSize;j++)
-		{
+  for (i = 0; i < ySize; i++) {
+    for (j = 0; j < xSize; j++) {
       data = pgm_read_byte(&dispdata[c]);
 
       if (menuItem == 1) {
@@ -118,19 +119,18 @@ void writeDispRamMenu(unsigned char xSize,unsigned int ySize, const unsigned cha
         }
       }
 
-			SPI.transfer(data);
+      SPI.transfer(data);
       c++;
-		}
-	}
+    }
+  }
   digitalWrite(PIN_CS, HIGH);
   digitalWrite(PIN_DATA, LOW);
 }
 
-void menuImage(const unsigned char *picture, unsigned int menuItem = 0)
-{
-  setRamPointer(0x00,0x27,0x01);	// set ram
-	writeDispRamMenu(128, 296, picture, menuItem);
-	updateDisplay();
+void menuImage(const unsigned char *picture, unsigned int menuItem = 0) {
+  setRamPointer(0x00, 0x27, 0x01); // set ram
+  writeDispRamMenu(128, 296, picture, menuItem);
+  updateDisplay();
 }
 
 bool menuX = false;
@@ -142,6 +142,7 @@ bool animu = false;
 bool flip = false;
 
 void loop() {
+#if false
   bool escape = false;
   while (digitalRead(PIN_JOY_BTN) == HIGH) {
     if (animu) {
@@ -206,7 +207,7 @@ void loop() {
           displayImage(pictures[3]);
           escape = true;
         } else if (menuItem == 3) {
-          parttest();
+//          parttest();
           resetDisplay();
           delay(200);
           initDisplay(false);
@@ -221,4 +222,13 @@ void loop() {
     }
     delay(600);
   }
+#else
+  delay(faster ? 300 : 2000);
+  for (unsigned int picture = 1; picture < num_pictures; picture++) {
+    displayImage(pictures[picture]);
+    delay(faster ? 300 : 2000);
+  }
+  initDisplay(true);
+  displayImage(pictures[0]);
+#endif
 }
